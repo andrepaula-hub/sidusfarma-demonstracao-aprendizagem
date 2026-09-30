@@ -53,7 +53,9 @@ Quando houver dúvida, o agente deve consultar os arquivos do repositório e dec
 
 ## Arquivos que devem ser lidos primeiro
 
-1. `README_PERGUNTAS.md` — perguntas históricas brutas e método geral de resposta.
+1. `GUIA_RESPOSTAS_AGENTE.md` — este arquivo; define o comportamento esperado do agente, o foco da Sprint 4 e as evidências prioritárias.
 2. `perguntas_e_metodo_de_estudo.md` — perguntas por Sprint e exemplos de como os feedbacks mudaram a preparação.
+
+`README_PERGUNTAS.md` é um índice complementar das perguntas históricas brutas.
 
 Depois, consultar os artefatos específicos da Sprint 4, especialmente `docs/referencia_artefatos_atuais_sprint_4.md`, `docs/feedback_pipeline_etl.md`, `.gitlab-ci.yml`, os contratos e os arquivos de dashboard.

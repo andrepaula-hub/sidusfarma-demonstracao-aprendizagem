@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "quality-report-v2.schema.json",
+  "title": "Relatório de qualidade do Artefato 3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract_schema",
+    "generated_at",
+    "source_fingerprint_sha256",
+    "source_manifest",
+    "datasets",
+    "relationships",
+    "parsing_errors",
+    "conditional_missingness",
+    "response_representations",
+    "consistency_checks"
+  ],
+  "properties": {
+    "schema_version": {"const": "2.0"},
+    "contract_schema": {"const": "schemas/quality-report-v2.schema.json"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "source_fingerprint_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "source_manifest": {"type": "object"},
+    "datasets": {"type": "object"},
+    "relationships": {"type": "array"},
+    "parsing_errors": {"type": "array"},
+    "conditional_missingness": {"type": "object"},
+    "response_representations": {"type": "object"},
+    "consistency_checks": {"type": "array"}
+  }
+}

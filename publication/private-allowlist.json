@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "files": [
+    {
+      "source": "docs/modelagem_quantitativa_de_dados_do_parceiro.md",
+      "destination": "modelagem_quantitativa_de_dados_do_parceiro.md",
+      "transform": "strip_internal_data_links"
+    },
+    {"source": "docs/images/completude_variaveis_criticas.png", "destination": "images/completude_variaveis_criticas.png"},
+    {"source": "docs/images/departamentos_top8.png", "destination": "images/departamentos_top8.png"},
+    {"source": "docs/images/outliers_combined.png", "destination": "images/outliers_combined.png"},
+    {"source": "docs/images/serie_temporal_pesquisas.png", "destination": "images/serie_temporal_pesquisas.png"},
+    {"source": "docs/images/status_pesquisas.png", "destination": "images/status_pesquisas.png"},
+    {"source": "docs/images/tipo_pesquisas.png", "destination": "images/tipo_pesquisas.png"},
+    {"source": "docs/images/tipo_questoes.png", "destination": "images/tipo_questoes.png"},
+    {"source": "docs/javascripts/mathjax-init.js", "destination": "javascripts/mathjax-init.js"},
+    {"source": "docs/stylesheets/extra.css", "destination": "stylesheets/extra.css"}
+  ]
+}

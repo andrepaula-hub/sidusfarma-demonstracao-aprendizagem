@@ -1,0 +1,18 @@
+{
+  "annotations": {"list": []},
+  "editable": false,
+  "panels": [
+    {"type": "stat", "title": "Status da última execução", "targets": [{"expr": "etl_pipeline_status{pipeline=\"ingestao_raw_sindusfarma\"}", "refId": "A"}], "gridPos": {"h": 8, "w": 8, "x": 0, "y": 0}},
+    {"type": "stat", "title": "Duração da última execução (s)", "targets": [{"expr": "etl_pipeline_duration_seconds{pipeline=\"ingestao_raw_sindusfarma\"}", "refId": "A"}], "gridPos": {"h": 8, "w": 8, "x": 8, "y": 0}},
+    {"type": "stat", "title": "Registros em quarentena", "targets": [{"expr": "etl_rows_quarantined{pipeline=\"ingestao_raw_sindusfarma\"}", "refId": "A"}], "gridPos": {"h": 8, "w": 8, "x": 16, "y": 0}},
+    {"type": "timeseries", "title": "Linhas lidas por fonte", "targets": [{"expr": "etl_rows_read{pipeline=\"ingestao_raw_sindusfarma\"}", "legendFormat": "{{dataset}}", "refId": "A"}], "gridPos": {"h": 9, "w": 12, "x": 0, "y": 8}},
+    {"type": "timeseries", "title": "Linhas novas versus reprocessadas", "targets": [{"expr": "etl_rows_inserted{pipeline=\"ingestao_raw_sindusfarma\"}", "legendFormat": "novas {{dataset}}", "refId": "A"}, {"expr": "etl_rows_replayed{pipeline=\"ingestao_raw_sindusfarma\"}", "legendFormat": "reprocessadas {{dataset}}", "refId": "B"}], "gridPos": {"h": 9, "w": 12, "x": 12, "y": 8}}
+  ],
+  "schemaVersion": 39,
+  "tags": ["sindusfarma", "etl", "airflow"],
+  "templating": {"list": []},
+  "time": {"from": "now-24h", "to": "now"},
+  "title": "Pipeline de Ingestão Raw — Sindusfarma",
+  "uid": "sindusfarma-ingestao-raw",
+  "version": 1
+}

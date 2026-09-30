@@ -1,0 +1,640 @@
+{
+  "schema_version": "2.0",
+  "contract_schema": "schemas/quality-report-v2.schema.json",
+  "generated_at": "2026-08-14T03:03:52.929218+00:00",
+  "source_fingerprint_sha256": "4cd54643e5fbe8eaa06e23beb7a8cb0f28737662135a462329131e982ae59757",
+  "source_manifest": {
+    "canonical_format": "csv-provisional",
+    "authority_status": "pending_partner_confirmation",
+    "snapshot_date": "2026-08-13",
+    "encoding": "utf-8-sig",
+    "delimiter": ";",
+    "null_policy": "apenas campos fisicamente vazios; texto não vazio é preservado",
+    "files": {
+      "clientes": {
+        "filename": "clientes.csv",
+        "size_bytes": 393677,
+        "sha256": "5073960065f3ce92a3eab34eeebb38af2b0aaa7e398c862963444a5b608719af",
+        "row_count": 5430,
+        "column_count": 5
+      },
+      "empresas": {
+        "filename": "empresas.csv",
+        "size_bytes": 66691,
+        "sha256": "850aaa1840cd24f43c033a0f06d339c9b5186bdaad10f1b653c956e307d3ded5",
+        "row_count": 779,
+        "column_count": 9
+      },
+      "pesquisas": {
+        "filename": "pesquisas.csv",
+        "size_bytes": 132693,
+        "sha256": "b8b5773018953a59d25fabb0875825660efe1723fdd37af58a2d85b46b80e7dc",
+        "row_count": 366,
+        "column_count": 33
+      },
+      "questoes": {
+        "filename": "questoes.csv",
+        "size_bytes": 72003,
+        "sha256": "e2c592898d75d13fd4cc6a5181966707d8c836e7c52ad99ccbaef69b3efbec8f",
+        "row_count": 231,
+        "column_count": 13
+      },
+      "respondentes": {
+        "filename": "respondentes.csv",
+        "size_bytes": 411628,
+        "sha256": "cb53e8517e7c43793f14131bd76a792f658c808c034f56da95c3235444afca05",
+        "row_count": 18735,
+        "column_count": 6
+      },
+      "respostas": {
+        "filename": "respostas.csv",
+        "size_bytes": 1315398,
+        "sha256": "db4ebd90fdaf203084aff947b50d19a55dab9d0b05b6b692bcbb6eee9f3dd82a",
+        "row_count": 20607,
+        "column_count": 9
+      }
+    }
+  },
+  "datasets": {
+    "clientes": {
+      "dataset_name": "clientes",
+      "row_count": 5430,
+      "column_count": 5,
+      "null_count_by_column": {
+        "id_cliente": 0,
+        "id_empresa": 1,
+        "cargo": 35,
+        "departamento": 31,
+        "e-mail": 1
+      },
+      "completeness_pct_by_column": {
+        "id_cliente": 100.0,
+        "id_empresa": 99.9815837937385,
+        "cargo": 99.35543278084714,
+        "departamento": 99.42909760589319,
+        "e-mail": 99.9815837937385
+      },
+      "overall_completeness_pct": 99.74953959484347,
+      "duplicate_row_count": 0,
+      "constant_columns": [],
+      "primary_key": {
+        "columns": [
+          "id_cliente"
+        ],
+        "null_row_count": 0,
+        "duplicate_row_count": 0,
+        "is_unique": true
+      }
+    },
+    "empresas": {
+      "dataset_name": "empresas",
+      "row_count": 779,
+      "column_count": 9,
+      "null_count_by_column": {
+        "ID": 0,
+        "Nome Fantasia": 0,
+        "% de mercado": 0,
+        "Nacionalidade": 69,
+        "Associado": 1,
+        "Tipo de Associado": 49,
+        "Cidade": 42,
+        "Estado": 43,
+        "País": 58
+      },
+      "completeness_pct_by_column": {
+        "ID": 100.0,
+        "Nome Fantasia": 100.0,
+        "% de mercado": 100.0,
+        "Nacionalidade": 91.14249037227215,
+        "Associado": 99.87163029525033,
+        "Tipo de Associado": 93.70988446726572,
+        "Cidade": 94.60847240051348,
+        "Estado": 94.4801026957638,
+        "País": 92.55455712451861
+      },
+      "overall_completeness_pct": 96.26301526173157,
+      "duplicate_row_count": 0,
+      "constant_columns": [],
+      "primary_key": {
+        "columns": [
+          "ID"
+        ],
+        "null_row_count": 0,
+        "duplicate_row_count": 0,
+        "is_unique": true
+      }
+    },
+    "pesquisas": {
+      "dataset_name": "pesquisas",
+      "row_count": 366,
+      "column_count": 33,
+      "null_count_by_column": {
+        "id": 0,
+        "titulo": 0,
+        "status": 0,
+        "tipo": 0,
+        "area": 0,
+        "participantes": 31,
+        "part_mercado": 44,
+        "data_solicitacao": 4,
+        "data_aprov": 346,
+        "data_divulgacao": 8,
+        "data_limite": 8,
+        "prorrogada_ate": 298,
+        "data_entrega": 32,
+        "dias_uteis_para_entrega": 35,
+        "complexidade": 276,
+        "tipo de resposta": 0,
+        "tempo_preenchimento": 135,
+        "objetivos": 123,
+        "dia da semana de lançamento": 3,
+        "dias úteis aberta": 3,
+        "dias entre a solicitação e a divulgação": 34,
+        "dias para tabulação": 36,
+        "Unnamed: 22": 366,
+        "Unnamed: 23": 366,
+        "Unnamed: 24": 366,
+        "Unnamed: 25": 366,
+        "Unnamed: 26": 366,
+        "Unnamed: 27": 366,
+        "Unnamed: 28": 366,
+        "Unnamed: 29": 366,
+        "Unnamed: 30": 366,
+        "Unnamed: 31": 366,
+        "Unnamed: 32": 366
+      },
+      "completeness_pct_by_column": {
+        "id": 100.0,
+        "titulo": 100.0,
+        "status": 100.0,
+        "tipo": 100.0,
+        "area": 100.0,
+        "participantes": 91.53005464480874,
+        "part_mercado": 87.97814207650273,
+        "data_solicitacao": 98.90710382513662,
+        "data_aprov": 5.46448087431694,
+        "data_divulgacao": 97.81420765027322,
+        "data_limite": 97.81420765027322,
+        "prorrogada_ate": 18.579234972677597,
+        "data_entrega": 91.2568306010929,
+        "dias_uteis_para_entrega": 90.43715846994536,
+        "complexidade": 24.59016393442623,
+        "tipo de resposta": 100.0,
+        "tempo_preenchimento": 63.114754098360656,
+        "objetivos": 66.39344262295081,
+        "dia da semana de lançamento": 99.18032786885246,
+        "dias úteis aberta": 99.18032786885246,
+        "dias entre a solicitação e a divulgação": 90.7103825136612,
+        "dias para tabulação": 90.1639344262295,
+        "Unnamed: 22": 0.0,
+        "Unnamed: 23": 0.0,
+        "Unnamed: 24": 0.0,
+        "Unnamed: 25": 0.0,
+        "Unnamed: 26": 0.0,
+        "Unnamed: 27": 0.0,
+        "Unnamed: 28": 0.0,
+        "Unnamed: 29": 0.0,
+        "Unnamed: 30": 0.0,
+        "Unnamed: 31": 0.0,
+        "Unnamed: 32": 0.0
+      },
+      "overall_completeness_pct": 54.94287133631396,
+      "duplicate_row_count": 0,
+      "constant_columns": [
+        "Unnamed: 22",
+        "Unnamed: 23",
+        "Unnamed: 24",
+        "Unnamed: 25",
+        "Unnamed: 26",
+        "Unnamed: 27",
+        "Unnamed: 28",
+        "Unnamed: 29",
+        "Unnamed: 30",
+        "Unnamed: 31",
+        "Unnamed: 32"
+      ],
+      "primary_key": {
+        "columns": [
+          "id"
+        ],
+        "null_row_count": 0,
+        "duplicate_row_count": 0,
+        "is_unique": true
+      }
+    },
+    "questoes": {
+      "dataset_name": "questoes",
+      "row_count": 231,
+      "column_count": 13,
+      "null_count_by_column": {
+        "id_pergunta": 0,
+        "pesquisa_id": 0,
+        "pesquisa_titulo": 0,
+        "enunciado": 0,
+        "tipo": 0,
+        "qtd_alternativas": 25,
+        "alternativas": 29,
+        "linhas_matriz": 228,
+        "colunas_matriz": 228,
+        "confianca": 0,
+        "formato_arquivo": 0,
+        "col_origem": 0,
+        "observacoes": 231
+      },
+      "completeness_pct_by_column": {
+        "id_pergunta": 100.0,
+        "pesquisa_id": 100.0,
+        "pesquisa_titulo": 100.0,
+        "enunciado": 100.0,
+        "tipo": 100.0,
+        "qtd_alternativas": 89.17748917748918,
+        "alternativas": 87.44588744588745,
+        "linhas_matriz": 1.2987012987012987,
+        "colunas_matriz": 1.2987012987012987,
+        "confianca": 100.0,
+        "formato_arquivo": 100.0,
+        "col_origem": 100.0,
+        "observacoes": 0.0
+      },
+      "overall_completeness_pct": 75.32467532467533,
+      "duplicate_row_count": 0,
+      "constant_columns": [
+        "observacoes"
+      ],
+      "primary_key": {
+        "columns": [
+          "id_pergunta"
+        ],
+        "null_row_count": 0,
+        "duplicate_row_count": 0,
+        "is_unique": true
+      }
+    },
+    "respondentes": {
+      "dataset_name": "respondentes",
+      "row_count": 18735,
+      "column_count": 6,
+      "null_count_by_column": {
+        "id_pesq": 0,
+        "hora_inicio": 17928,
+        "hora_termino": 17928,
+        "id_empresa": 0,
+        "market_share": 5,
+        "id_cliente": 856
+      },
+      "completeness_pct_by_column": {
+        "id_pesq": 100.0,
+        "hora_inicio": 4.307445956765412,
+        "hora_termino": 4.307445956765412,
+        "id_empresa": 100.0,
+        "market_share": 99.97331198291967,
+        "id_cliente": 95.43101147584736
+      },
+      "overall_completeness_pct": 67.33653589538297,
+      "duplicate_row_count": 0,
+      "constant_columns": [],
+      "primary_key": {
+        "columns": [
+          "id_pesq",
+          "id_empresa",
+          "id_cliente"
+        ],
+        "null_row_count": 856,
+        "duplicate_row_count": 0,
+        "is_unique": false
+      }
+    },
+    "respostas": {
+      "dataset_name": "respostas",
+      "row_count": 20607,
+      "column_count": 9,
+      "null_count_by_column": {
+        "id_resposta": 0,
+        "pesquisa_id": 0,
+        "id_pergunta": 0,
+        "respondent_id": 0,
+        "id_empresa": 10,
+        "alternativa": 10266,
+        "linha_matriz": 16603,
+        "coluna_matriz": 16603,
+        "valor": 8307
+      },
+      "completeness_pct_by_column": {
+        "id_resposta": 100.0,
+        "pesquisa_id": 100.0,
+        "id_pergunta": 100.0,
+        "respondent_id": 100.0,
+        "id_empresa": 99.95147280050467,
+        "alternativa": 50.18197699810744,
+        "linha_matriz": 19.430290677924976,
+        "coluna_matriz": 19.430290677924976,
+        "valor": 59.68845537924007
+      },
+      "overall_completeness_pct": 72.07583183707801,
+      "duplicate_row_count": 0,
+      "constant_columns": [],
+      "primary_key": {
+        "columns": [
+          "id_resposta"
+        ],
+        "null_row_count": 0,
+        "duplicate_row_count": 0,
+        "is_unique": true
+      }
+    }
+  },
+  "relationships": [
+    {
+      "child": "clientes.id_empresa",
+      "parent": "empresas.ID",
+      "orphan_value_count": 0,
+      "orphan_row_count": 0,
+      "orphan_values_sample": []
+    },
+    {
+      "child": "questoes.pesquisa_id",
+      "parent": "pesquisas.id",
+      "orphan_value_count": 4,
+      "orphan_row_count": 43,
+      "orphan_values_sample": [
+        "1116",
+        "1139",
+        "1147",
+        "424"
+      ]
+    },
+    {
+      "child": "respondentes.id_pesq",
+      "parent": "pesquisas.id",
+      "orphan_value_count": 1,
+      "orphan_row_count": 55,
+      "orphan_values_sample": [
+        "304"
+      ]
+    },
+    {
+      "child": "respondentes.id_empresa",
+      "parent": "empresas.ID",
+      "orphan_value_count": 0,
+      "orphan_row_count": 0,
+      "orphan_values_sample": []
+    },
+    {
+      "child": "respondentes.id_cliente",
+      "parent": "clientes.id_cliente",
+      "orphan_value_count": 0,
+      "orphan_row_count": 0,
+      "orphan_values_sample": []
+    },
+    {
+      "child": "respostas.pesquisa_id",
+      "parent": "pesquisas.id",
+      "orphan_value_count": 4,
+      "orphan_row_count": 3592,
+      "orphan_values_sample": [
+        "1116",
+        "1139",
+        "1147",
+        "424"
+      ]
+    },
+    {
+      "child": "respostas.id_pergunta",
+      "parent": "questoes.id_pergunta",
+      "orphan_value_count": 0,
+      "orphan_row_count": 0,
+      "orphan_values_sample": []
+    },
+    {
+      "child": "respostas.id_empresa",
+      "parent": "empresas.ID",
+      "orphan_value_count": 0,
+      "orphan_row_count": 0,
+      "orphan_values_sample": []
+    }
+  ],
+  "parsing_errors": [],
+  "conditional_missingness": {
+    "questoes.alternativas": {
+      "column": "alternativas",
+      "total_row_count": 231,
+      "raw_missing_count": 29,
+      "raw_missing_pct": 12.554112554112553,
+      "applicable_row_count": 203,
+      "applicable_missing_count": 1,
+      "applicable_missing_pct": 0.49261083743842365
+    },
+    "questoes.linhas_matriz": {
+      "column": "linhas_matriz",
+      "total_row_count": 231,
+      "raw_missing_count": 228,
+      "raw_missing_pct": 98.7012987012987,
+      "applicable_row_count": 3,
+      "applicable_missing_count": 0,
+      "applicable_missing_pct": 0.0
+    },
+    "questoes.colunas_matriz": {
+      "column": "colunas_matriz",
+      "total_row_count": 231,
+      "raw_missing_count": 228,
+      "raw_missing_pct": 98.7012987012987,
+      "applicable_row_count": 3,
+      "applicable_missing_count": 0,
+      "applicable_missing_pct": 0.0
+    }
+  },
+  "response_representations": {
+    "total_row_count": 20607,
+    "evaluable_row_count": 20607,
+    "valid_representation_count": 20607,
+    "missing_representation_count": 0,
+    "valid_representation_pct": 100.0,
+    "unknown_question_row_count": 0,
+    "unsupported_question_type_row_count": 0,
+    "ambiguous_question_type_row_count": 0,
+    "not_evaluable_row_count": 0,
+    "physical_missing_count_by_column": {
+      "alternativa": 10266,
+      "coluna_matriz": 16603,
+      "linha_matriz": 16603,
+      "valor": 8307
+    },
+    "question_contract": {
+      "duplicate_question_id_count": 0,
+      "ambiguous_question_id_count": 0
+    },
+    "representation_rules": {
+      "aberta": [
+        [
+          "valor"
+        ]
+      ],
+      "numerica": [
+        [
+          "valor"
+        ]
+      ],
+      "multipla_escolha": [
+        [
+          "alternativa"
+        ],
+        [
+          "valor"
+        ]
+      ],
+      "caixas_de_selecao": [
+        [
+          "alternativa"
+        ]
+      ],
+      "matriz_avaliacao": [
+        [
+          "linha_matriz",
+          "coluna_matriz"
+        ],
+        [
+          "alternativa",
+          "valor"
+        ]
+      ]
+    },
+    "by_question_type": {
+      "aberta": {
+        "row_count": 154,
+        "valid_representation_count": 154,
+        "missing_representation_count": 0,
+        "valid_representation_pct": 100.0,
+        "accepted_representation_count_by_rule": {
+          "valor": 154
+        },
+        "accepted_representation_counts_are_non_additive": true
+      },
+      "numerica": {
+        "row_count": 540,
+        "valid_representation_count": 540,
+        "missing_representation_count": 0,
+        "valid_representation_pct": 100.0,
+        "accepted_representation_count_by_rule": {
+          "valor": 540
+        },
+        "accepted_representation_counts_are_non_additive": true
+      },
+      "multipla_escolha": {
+        "row_count": 5853,
+        "valid_representation_count": 5853,
+        "missing_representation_count": 0,
+        "valid_representation_pct": 100.0,
+        "accepted_representation_count_by_rule": {
+          "alternativa": 285,
+          "valor": 5720
+        },
+        "accepted_representation_counts_are_non_additive": true
+      },
+      "caixas_de_selecao": {
+        "row_count": 10052,
+        "valid_representation_count": 10052,
+        "missing_representation_count": 0,
+        "valid_representation_pct": 100.0,
+        "accepted_representation_count_by_rule": {
+          "alternativa": 10052
+        },
+        "accepted_representation_counts_are_non_additive": true
+      },
+      "matriz_avaliacao": {
+        "row_count": 4008,
+        "valid_representation_count": 4008,
+        "missing_representation_count": 0,
+        "valid_representation_pct": 100.0,
+        "accepted_representation_count_by_rule": {
+          "linha_matriz+coluna_matriz": 4004,
+          "alternativa+valor": 4
+        },
+        "accepted_representation_counts_are_non_additive": true
+      }
+    }
+  },
+  "consistency_checks": [
+    {
+      "id": "entrega_antes_da_solicitacao",
+      "severity": "warning",
+      "description": "Ordem cronológica potencialmente inconsistente.",
+      "affected_row_count": 0
+    },
+    {
+      "id": "divulgacao_antes_da_solicitacao",
+      "severity": "warning",
+      "description": "Ordem cronológica potencialmente inconsistente.",
+      "affected_row_count": 0
+    },
+    {
+      "id": "limite_antes_da_divulgacao",
+      "severity": "warning",
+      "description": "Ordem cronológica potencialmente inconsistente.",
+      "affected_row_count": 0
+    },
+    {
+      "id": "prazo_de_entrega_negativo",
+      "severity": "error",
+      "description": "Prazo calculado inferior a zero.",
+      "affected_row_count": 0
+    },
+    {
+      "id": "id_cliente_sentinela_si",
+      "severity": "warning",
+      "description": "Identificador usa o sentinela textual s/i.",
+      "affected_row_count": 1
+    },
+    {
+      "id": "associado_variacao_caixa_sim",
+      "severity": "warning",
+      "description": "Valor equivalente a Sim usa variação de maiúsculas/minúsculas.",
+      "affected_row_count": 1
+    },
+    {
+      "id": "questoes_id_pergunta_duplicado",
+      "severity": "error",
+      "description": "Chave de questão duplicada; o tipo é tratado como ambíguo nas respostas relacionadas.",
+      "affected_row_count": 0
+    },
+    {
+      "id": "titulo_questao_diverge_pesquisa",
+      "severity": "warning",
+      "description": "Título denormalizado da questão diverge do cadastro pai.",
+      "affected_row_count": 41
+    },
+    {
+      "id": "empresa_participacao_diverge_contato",
+      "severity": "ambiguity",
+      "description": "Empresa registrada na participação diverge da empresa do contato.",
+      "affected_row_count": 140,
+      "affected_research_count": 105
+    },
+    {
+      "id": "participantes_declarados_divergem_observados",
+      "severity": "ambiguity",
+      "description": "Quantidade declarada na pesquisa diverge das participações observadas.",
+      "affected_row_count": 40,
+      "comparable_row_count": 335,
+      "declared_excess_total": 1648
+    },
+    {
+      "id": "participantes_declarados_sem_observacao",
+      "severity": "ambiguity",
+      "description": "Pesquisa declara participantes, mas não possui participação observada.",
+      "affected_row_count": 9
+    },
+    {
+      "id": "resposta_sem_par_participacao",
+      "severity": "ambiguity",
+      "description": "Par pesquisa/empresa da resposta não aparece nas participações; não há chave individual comum para concluir erro.",
+      "affected_row_count": 12076
+    },
+    {
+      "id": "market_share_historico_diverge_cadastro_atual",
+      "severity": "ambiguity",
+      "description": "Market share da participação diverge do cadastro atual e pode representar snapshot histórico.",
+      "affected_row_count": 13816,
+      "comparable_row_count": 18730
+    }
+  ]
+}

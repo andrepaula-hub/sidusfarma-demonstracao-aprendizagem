@@ -1,0 +1,47 @@
+site_name: Sindusfarma Docs
+site_description: Documentação técnica e analítica do projeto Sindusfarma
+site_dir: site
+docs_dir: docs
+theme:
+  name: material
+  language: pt-BR
+  features:
+    - navigation.sections
+    - navigation.expand
+    - content.code.copy
+    - search.highlight
+    - search.suggest
+markdown_extensions:
+  - admonition
+  - attr_list
+  - footnotes
+  - md_in_html
+  - tables
+  - pymdownx.arithmatex:
+      generic: true
+  - toc:
+      permalink: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.inlinehilite
+  - pymdownx.highlight
+plugins:
+  - search
+extra_javascript:
+  - javascripts/mathjax-init.js
+  - https://unpkg.com/mathjax@3.2.2/es5/tex-mml-chtml.js
+extra_css:
+  - stylesheets/extra.css
+nav:
+  - Início: index.md
+  - Contexto Organizacional: contexto_organizacional_+_requisitos_da_solução_analítica.md
+  - Governança de Dados: "Governança-de Dados-do-Projeto.md"
+  - Inventário das Bases: inventario_das_bases.md
+  - Especificação Quantitativa: specs/spec-analise-quantitativa-dados.md
+  - ADR-001 do Pipeline: specs/adr-001-pipeline-analise-quantitativa.md
+  - Arquitetura ETL Orquestrado: arquitetura_etl_orquestrado.md
+  - Relatório Quantitativo: modelagem_quantitativa_de_dados_do_parceiro.md
+  - Feedbacks da Sprint 1: feedbacks_sprint_1.md

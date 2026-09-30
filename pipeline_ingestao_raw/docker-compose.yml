@@ -1,0 +1,150 @@
+name: sindusfarma-ingestao-raw
+
+x-airflow-env: &airflow-env
+  AIRFLOW__CORE__EXECUTOR: SequentialExecutor
+  AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+  AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "false"
+  AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://warehouse:warehouse@postgres:5432/airflow
+  AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "false"
+  AIRFLOW_CONN_WAREHOUSE: postgresql://warehouse:warehouse@postgres:5432/warehouse
+  MINIO_ENDPOINT: http://minio:9000
+  MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:-minioadmin}
+  MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin}
+  DBT_PROFILES_DIR: /opt/airflow/dbt
+  CONTRACT_DIR: /opt/airflow/contracts
+  PIPELINE_VERSION: "1.0.0"
+  PUSHGATEWAY_URL: http://pushgateway:9091
+
+x-airflow: &airflow-common
+  image: sindusfarma-airflow:local
+  build:
+    context: .
+    dockerfile: Dockerfile.airflow
+  environment: *airflow-env
+  volumes:
+    - ./airflow/dags:/opt/airflow/dags
+    - ./airflow/logs:/opt/airflow/logs
+    - ./dbt:/opt/airflow/dbt
+    - ./tests:/opt/airflow/tests:ro
+    - ./data:/opt/airflow/data:ro
+    - ../contracts:/opt/airflow/contracts:ro
+    - ./README.md:/opt/airflow/README.md:ro
+    - ./DATA_MAPPING.md:/opt/airflow/DATA_MAPPING.md:ro
+  user: "${AIRFLOW_UID:-50000}:0"
+  depends_on:
+    postgres:
+      condition: service_healthy
+    minio:
+      condition: service_healthy
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-warehouse}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-warehouse}
+      POSTGRES_DB: ${POSTGRES_DB:-warehouse}
+    ports: ["15433:5432"]
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/init-airflow.sql:/docker-entrypoint-initdb.d/01-airflow.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+
+  minio:
+    image: quay.io/minio/minio:RELEASE.2025-04-22T22-12-26Z
+    command: server /data --console-address :9001
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
+    ports: ["19000:9000", "19001:9001"]
+    volumes: ["minio_data:/data"]
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+
+  minio-init:
+    image: quay.io/minio/mc:RELEASE.2025-04-16T18-13-26Z
+    depends_on:
+      minio:
+        condition: service_healthy
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
+    volumes:
+      - ./data:/seed:ro
+    entrypoint: >-
+      /bin/sh -c 'mc alias set local http://minio:9000 "$${MINIO_ROOT_USER}" "$${MINIO_ROOT_PASSWORD}";
+      mc mb --ignore-existing local/raw;
+      for file in /seed/*.csv; do dataset=$$(basename "$${file}" .csv); mc cp "$${file}" "local/raw/raw/$${dataset}/ano=2026/$${dataset}.csv"; done'
+
+  airflow-init:
+    <<: *airflow-common
+    entrypoint: /bin/bash
+    command: -c 'airflow db migrate && airflow users create --username "$${AIRFLOW_ADMIN_USER:-airflow}" --password "$${AIRFLOW_ADMIN_PASSWORD:-airflow}" --firstname Airflow --lastname Admin --role Admin --email airflow@example.local || true'
+    environment:
+      <<: *airflow-env
+      AIRFLOW_ADMIN_USER: ${AIRFLOW_ADMIN_USER:-airflow}
+      AIRFLOW_ADMIN_PASSWORD: ${AIRFLOW_ADMIN_PASSWORD:-airflow}
+
+  airflow-webserver:
+    <<: *airflow-common
+    command: webserver
+    ports: ["18080:8080"]
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+      minio-init:
+        condition: service_completed_successfully
+
+  dbt-docs:
+    image: python:3.12-alpine
+    working_dir: /dbt/target
+    command: python -m http.server 8081 --bind 0.0.0.0
+    ports: ["18081:8081"]
+    volumes: ["./dbt:/dbt:ro"]
+
+  pushgateway:
+    image: prom/pushgateway:v1.10.0
+    ports: ["19091:9091"]
+
+  prometheus:
+    image: prom/prometheus:v2.54.1
+    command: ["--config.file=/etc/prometheus/prometheus.yml", "--web.enable-lifecycle"]
+    ports: ["19090:9090"]
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./monitoring/alerts.yml:/etc/prometheus/alerts.yml:ro
+
+  grafana:
+    image: grafana/grafana:11.5.2
+    ports: ["13000:3000"]
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+
+  k6:
+    image: grafana/k6:0.54.0
+    profiles: ["performance"]
+    volumes:
+      - ./tests/performance:/scripts:ro
+    command: run /scripts/ui_smoke.js
+
+volumes:
+  postgres_data:
+  minio_data:

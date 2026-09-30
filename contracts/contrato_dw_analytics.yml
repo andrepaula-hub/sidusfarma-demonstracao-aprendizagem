@@ -1,0 +1,77 @@
+contract_id: contrato_dw_analytics
+contract_version: 1.0.0
+layer: analytics
+status: proposed
+description: Contrato para tabelas, dimensões, fatos e métricas consumidas no DW ou dashboards.
+
+responsibility:
+  owner: Data Owner da Central de Pesquisas
+  steward: Data Steward do projeto
+  custodian: Equipe de Dados
+
+models:
+  - model_name: dim_empresa
+    source_datasets:
+      - empresas
+    grain: uma empresa
+    required_fields:
+      - empresa_id
+      - nome_fantasia
+      - nacionalidade
+      - associado
+      - cidade
+      - estado
+  - model_name: dim_pesquisa
+    source_datasets:
+      - pesquisas
+    grain: uma pesquisa
+    required_fields:
+      - pesquisa_id
+      - titulo
+      - status
+      - tipo
+      - area
+  - model_name: fato_resposta
+    source_datasets:
+      - respostas
+      - pesquisas
+      - questoes
+      - empresas
+    grain: uma resposta registrada
+    required_fields:
+      - resposta_id
+      - pesquisa_id
+      - pergunta_id
+      - empresa_id
+  - model_name: metricas_pesquisas
+    source_datasets:
+      - pesquisas
+      - respostas
+      - respondentes
+    grain: agregação por pesquisa ou período
+    required_metrics:
+      - quantidade_pesquisas
+      - quantidade_respostas
+      - taxa_participacao
+      - dias_uteis_para_entrega
+
+lineage_required:
+  - source_dataset
+  - source_field
+  - transformation
+  - target_model
+  - target_field
+  - model_version
+
+evidence_required:
+  - run_id
+  - model_name
+  - model_version
+  - dataset_version
+  - pipeline_version
+  - transformation_log
+
+acceptance:
+  fail_when_source_dataset_is_not_trusted: true
+  fail_when_model_version_missing: true
+  fail_when_lineage_mapping_missing: true

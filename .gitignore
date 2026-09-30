@@ -1,0 +1,53 @@
+# Materiais locais de referência (podem incluir dados pessoais e arquivos recebidos do parceiro)
+REFERENCE_MATERIAL/
+
+# Dados operacionais da demonstração local da ponderada (incluem PII do parceiro)
+pipeline_ingestao_raw/data/
+pipeline_ingestao_raw/airflow/logs/
+pipeline_ingestao_raw/dbt/target/
+
+# Estruturas legadas que continham cópias de fontes brutas fora de docs
+DADOS/
+CONTEXTO_PROJETO/
+
+# Contexto e planejamento locais do Codex (não fazem parte da entrega acadêmica)
+MEMORY_BANK/
+AGENT.md
+AGENT_ARTEFATO_3.md
+PLANO_EXECUCAO_ARTEFATO_3.md
+PROPOSTA_ALTERACOES_KANBAN_ARTEFATO_3.md
+ROADMAP_DANIEL_ARTEFATO_3.md
+tasks_sprint_1.md
+tasks_sprint_1.docx
+MEMORY_BANK/ARTEFATO_3_PREPARACAO.md
+
+# Artefatos temporários gerados por ferramentas locais
+.codex_tmp/
+.codex_render_check/
+site/
+.build/
+public/
+
+# Arquivos locais de sistema/editor
+.DS_Store
+Thumbs.db
+
+# Caches and local editor artifacts
+.mypy_cache/
+.ruff_cache/
+*.pyc
+
+# Ambiente local, segredos e caches de execução
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+.ipynb_checkpoints/
+*.log
+*.tmp

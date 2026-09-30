@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "forbidden_file_extensions": [".csv", ".xlsx", ".xls", ".zip", ".parquet", ".json"],
+  "allowed_generated_json": ["search/search_index.json"],
+  "forbidden_path_fragments": ["reference_material", "status_report", "tasks_andre", "quality_report", "kpis_summary"],
+  "forbidden_text_patterns": [
+    "orphan_values_sample",
+    "REFERENCE_MATERIAL",
+    "C:\\\\Users\\\\",
+    "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+  ]
+}

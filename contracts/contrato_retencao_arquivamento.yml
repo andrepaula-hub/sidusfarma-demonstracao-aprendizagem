@@ -1,0 +1,64 @@
+contract_id: contrato_retencao_arquivamento
+contract_version: 1.0.0
+layer: governance
+status: proposed
+description: Contrato para retenção, arquivamento, descarte e anonimização.
+
+responsibility:
+  owner: Data Owner da Central de Pesquisas
+  steward: Data Steward do projeto
+  custodian: Equipe de Dados
+
+retention_policies:
+  raw_versioned_files:
+    active_retention: 12 months
+    archive_trigger: file_ingested AND source_checksum_registered
+    disposal_trigger: retention_expired AND owner_approval_registered
+    approval_required_for_disposal: true
+  staging_data:
+    active_retention: 30 days
+    archive_trigger: validation_status IN [approved, rejected]
+    disposal_trigger: active_retention_expired
+    approval_required_for_disposal: false
+  quarantine_data:
+    active_retention: 90 days
+    archive_trigger: resolution_status IN [corrected, reprocessed, discarded]
+    disposal_trigger: active_retention_expired AND resolution_status_registered
+    approval_required_for_disposal: true
+  trusted_data:
+    active_retention: 24 months
+    archive_trigger: dataset_version_superseded OR analytical_cycle_closed
+    disposal_trigger: retention_expired AND owner_approval_registered
+    approval_required_for_disposal: true
+  analytics_data:
+    active_retention: 24 months
+    archive_trigger: model_version_superseded OR metric_discontinued
+    disposal_trigger: retention_expired AND owner_approval_registered
+    approval_required_for_disposal: true
+  logs_and_lineage:
+    active_retention: 24 months
+    archive_trigger: audit_window_closed
+    disposal_trigger: retention_expired AND no_active_dataset_dependency
+    approval_required_for_disposal: false
+  published_data:
+    active_retention: 24 months
+    archive_trigger: published_dataset_version_superseded OR publication_removed
+    disposal_trigger: retention_expired AND owner_approval_registered
+    approval_required_for_disposal: true
+
+evidence_required:
+  - archive_id
+  - disposal_id
+  - dataset_name
+  - dataset_version
+  - contract_version
+  - retention_status
+  - archived_at
+  - disposed_at
+  - approved_by
+
+acceptance:
+  fail_archive_without_archive_id: true
+  fail_disposal_without_disposal_id: true
+  fail_disposal_when_approval_required_and_missing: true
+  block_disposal_when_active_dependency_exists: true

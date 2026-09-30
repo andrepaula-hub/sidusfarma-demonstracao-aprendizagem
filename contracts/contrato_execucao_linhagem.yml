@@ -1,0 +1,55 @@
+contract_id: contrato_execucao_linhagem
+contract_version: 1.0.0
+layer: governance
+status: proposed
+description: Contrato para logs de execução, identificadores de pipeline e linhagem ponta a ponta.
+
+responsibility:
+  owner: Data Owner da Central de Pesquisas
+  steward: Data Steward do projeto
+  custodian: Equipe de Dados
+
+execution_metadata:
+  required_fields:
+    - run_id
+    - job_name
+    - pipeline_version
+    - contract_version
+    - started_at
+    - finished_at
+    - execution_status
+
+dataset_lineage:
+  required_fields:
+    - run_id
+    - input_dataset
+    - input_dataset_version
+    - output_dataset
+    - output_dataset_version
+    - transformation_name
+    - transformation_version
+
+field_lineage:
+  required_fields:
+    - source_dataset
+    - source_field
+    - transformation
+    - target_dataset
+    - target_field
+    - contract_id
+    - contract_version
+
+evidence_required:
+  - run_id
+  - pipeline_version
+  - contract_version
+  - dataset_version
+  - model_version
+  - validation_status
+  - lineage_record_id
+
+acceptance:
+  fail_execution_without_run_id: true
+  fail_execution_without_contract_version: true
+  fail_reuse_without_dataset_version: true
+  fail_model_without_field_lineage: true

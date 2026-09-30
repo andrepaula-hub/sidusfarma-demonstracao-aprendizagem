@@ -1,0 +1,58 @@
+version: 2
+
+models:
+  - name: quarantine_registros_orfaos
+    description: "Registros que preservamos para rastreabilidade, mas que não podem seguir à camada trusted por ausência de pesquisa pai."
+    columns:
+      - name: rejection_reason
+        tests: [not_null]
+  - name: dim_empresa
+    description: "Dimensão de empresas farmacêuticas, derivada de empresas.csv."
+    columns:
+      - name: empresa_id
+        tests: [not_null, unique]
+  - name: dim_pesquisa
+    description: "Dimensão de pesquisas existentes no cadastro mestre."
+    columns:
+      - name: pesquisa_id
+        tests: [not_null, unique]
+  - name: dim_cliente
+    description: "Dimensão de contatos. cliente_id permanece texto para preservar o sentinela s/i."
+    columns:
+      - name: cliente_id
+        tests: [not_null, unique]
+  - name: dim_questao
+    description: "Questões válidas, isto é, vinculadas a uma pesquisa existente."
+    columns:
+      - name: pergunta_id
+        tests: [not_null, unique]
+      - name: pesquisa_id
+        tests:
+          - relationships:
+              to: ref('dim_pesquisa')
+              field: pesquisa_id
+  - name: fato_resposta
+    description: "Fato no grão de uma resposta registrada; só contém chaves dimensionais confiáveis."
+    columns:
+      - name: resposta_id
+        tests: [not_null, unique]
+      - name: pesquisa_id
+        tests:
+          - relationships:
+              to: ref('dim_pesquisa')
+              field: pesquisa_id
+      - name: pergunta_id
+        tests:
+          - relationships:
+              to: ref('dim_questao')
+              field: pergunta_id
+      - name: empresa_id
+        tests:
+          - relationships:
+              to: ref('dim_empresa')
+              field: empresa_id
+  - name: metricas_pesquisas
+    description: "Indicadores por pesquisa, documentados e navegáveis no dbt Docs."
+    columns:
+      - name: pesquisa_id
+        tests: [not_null, unique]

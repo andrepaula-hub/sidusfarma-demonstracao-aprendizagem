@@ -1,0 +1,84 @@
+contract_id: contrato_pesquisas_trusted
+contract_version: 1.0.0
+layer: trusted
+status: proposed
+description: Contrato para dados aprovados e prontos para consumo analítico.
+
+responsibility:
+  owner: Data Owner da Central de Pesquisas
+  steward: Data Steward do projeto
+  custodian: Equipe de Dados
+
+quality_rules:
+  uniqueness:
+    - dataset: clientes
+      fields:
+        - id_cliente
+    - dataset: empresas
+      fields:
+        - ID
+    - dataset: pesquisas
+      fields:
+        - id
+    - dataset: questoes
+      fields:
+        - id_pergunta
+    - dataset: respostas
+      fields:
+        - id_resposta
+  not_null:
+    clientes:
+      - id_cliente
+      - id_empresa
+    empresas:
+      - ID
+      - Nome Fantasia
+    pesquisas:
+      - id
+      - titulo
+      - status
+      - tipo
+    questoes:
+      - id_pergunta
+      - pesquisa_id
+    respostas:
+      - id_resposta
+      - pesquisa_id
+      - id_pergunta
+  referential_integrity:
+    - relationship: clientes.id_empresa -> empresas.ID
+      required: true
+    - relationship: questoes.pesquisa_id -> pesquisas.id
+      required: true
+      current_gap: IDs 424, 1116, 1139 e 1147 sem correspondência no inventário atual
+    - relationship: respondentes.id_pesq -> pesquisas.id
+      required: true
+      current_gap: ID 304 sem correspondência no inventário atual
+    - relationship: respostas.pesquisa_id -> pesquisas.id
+      required: true
+      current_gap: IDs 424, 1116, 1139 e 1147 sem correspondência no inventário atual
+    - relationship: respostas.id_pergunta -> questoes.id_pergunta
+      required: true
+    - relationship: respostas.id_empresa -> empresas.ID
+      required: true
+
+promotion:
+  target_layer: trusted
+  required_status: approved
+  generate_dataset_version: true
+
+evidence_required:
+  - run_id
+  - dataset_name
+  - dataset_version
+  - contract_version
+  - validation_status
+  - row_count_input
+  - row_count_output
+  - rejected_row_count
+  - promoted_at
+
+acceptance:
+  fail_pipeline_on_required_quality_break: true
+  block_promotion_when_validation_status_is_not_approved: true
+  require_dataset_version_on_promotion: true

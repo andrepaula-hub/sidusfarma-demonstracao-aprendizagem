@@ -1,0 +1,19 @@
+groups:
+  - name: sindusfarma-etl
+    rules:
+      - alert: SindusfarmaPipelineFailed
+        expr: etl_pipeline_status{pipeline="ingestao_raw_sindusfarma"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "A última execução do pipeline Sindusfarma falhou"
+          description: "Verifique o Airflow e audit.audit_pipeline_runs para o run_id e a causa."
+      - alert: SindusfarmaPipelineStale
+        expr: time() - push_time_seconds{pipeline="ingestao_raw_sindusfarma"} > 25200
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "O pipeline Sindusfarma está sem métricas recentes"
+          description: "Não houve publicação de métricas nas últimas sete horas."

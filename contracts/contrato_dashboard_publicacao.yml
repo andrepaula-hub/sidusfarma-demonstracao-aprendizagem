@@ -1,0 +1,41 @@
+contract_id: contrato_dashboard_publicacao
+contract_version: 1.0.0
+layer: publishing
+status: proposed
+description: Contrato para publicação de datasets aprovados em dashboards ou entregas finais.
+
+responsibility:
+  owner: Data Owner da Central de Pesquisas
+  steward: Data Steward do projeto
+  custodian: Equipe de Dados
+
+publication_targets:
+  - dashboard_name: painel_operacional
+    dataset_source: DW/Analytics
+    status: proposed
+  - dashboard_name: painel_estrategico
+    dataset_source: DW/Analytics
+    status: proposed
+  - dashboard_name: portal_acervo_publico
+    dataset_source: DW/Analytics
+    status: proposed
+
+required_publication_metadata:
+  - dashboard_name
+  - published_dataset_version
+  - model_version
+  - published_at
+  - published_by
+  - publication_status
+
+evidence_required:
+  - dashboard_name
+  - published_dataset_version
+  - model_version
+  - published_at
+  - publication_status
+
+acceptance:
+  fail_publication_without_approved_dataset: true
+  fail_publication_without_dataset_version: true
+  fail_publication_without_lineage_reference: true

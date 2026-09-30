@@ -1,0 +1,64 @@
+contract_id: contrato_staging
+contract_version: 1.0.0
+layer: staging
+status: proposed
+description: Contrato para validação estrutural inicial antes da promoção para trusted.
+
+responsibility:
+  owner: Data Owner da Central de Pesquisas
+  steward: Data Steward do projeto
+  custodian: Equipe de Dados
+
+required_controls:
+  schema_validation: true
+  required_fields_validation: true
+  type_validation: true
+  quarantine_on_failure: true
+
+datasets:
+  clientes:
+    required_fields:
+      - id_cliente
+      - id_empresa
+      - e-mail
+  empresas:
+    required_fields:
+      - ID
+      - Nome Fantasia
+  pesquisas:
+    required_fields:
+      - id
+      - titulo
+      - status
+      - tipo
+  questoes:
+    required_fields:
+      - id_pergunta
+      - pesquisa_id
+  respondentes:
+    required_fields:
+      - id_pesq
+      - id_empresa
+      - id_cliente
+  respostas:
+    required_fields:
+      - id_resposta
+      - pesquisa_id
+      - id_pergunta
+      - id_empresa
+
+evidence_required:
+  - run_id
+  - dataset_name
+  - contract_version
+  - validation_status
+  - schema_errors
+  - row_count_input
+  - row_count_output
+  - rejected_row_count
+  - rejection_reason
+
+acceptance:
+  fail_pipeline_on_missing_required_field: true
+  fail_pipeline_on_invalid_required_type: true
+  route_invalid_records_to_quarantine: true

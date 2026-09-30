@@ -1,0 +1,76 @@
+contract_id: contrato_fontes_raw
+contract_version: 1.0.0
+layer: raw
+status: proposed
+description: Contrato para arquivos ou extrações recebidas do parceiro antes de qualquer transformação.
+
+responsibility:
+  owner: Data Owner da Central de Pesquisas
+  steward: Data Steward do projeto
+  custodian: Equipe de Dados
+
+sources:
+  - dataset: clientes
+    file_name: clientes.csv
+    source_system: Exportação CSV do parceiro; sistema operacional original a confirmar
+    required: true
+    expected_encoding: utf-8-sig
+    expected_delimiter: ";"
+    primary_key:
+      - id_cliente
+  - dataset: empresas
+    file_name: empresas.csv
+    source_system: Exportação CSV do parceiro; sistema operacional original a confirmar
+    required: true
+    expected_encoding: utf-8-sig
+    expected_delimiter: ";"
+    primary_key:
+      - ID
+  - dataset: pesquisas
+    file_name: pesquisas.csv
+    source_system: Exportação CSV do parceiro; sistema operacional original a confirmar
+    required: true
+    expected_encoding: utf-8-sig
+    expected_delimiter: ";"
+    primary_key:
+      - id
+  - dataset: questoes
+    file_name: questoes.csv
+    source_system: Exportação CSV do parceiro; sistema operacional original a confirmar
+    required: true
+    expected_encoding: utf-8-sig
+    expected_delimiter: ";"
+    primary_key:
+      - id_pergunta
+  - dataset: respondentes
+    file_name: respondentes.csv
+    source_system: Exportação CSV do parceiro; sistema operacional original a confirmar
+    required: true
+    expected_encoding: utf-8-sig
+    expected_delimiter: ";"
+    primary_key:
+      - id_pesq
+      - id_empresa
+      - id_cliente
+  - dataset: respostas
+    file_name: respostas.csv
+    source_system: Exportação CSV do parceiro; sistema operacional original a confirmar
+    required: true
+    expected_encoding: utf-8-sig
+    expected_delimiter: ";"
+    primary_key:
+      - id_resposta
+
+evidence_required:
+  - run_id
+  - source_file
+  - source_checksum
+  - file_size_bytes
+  - row_count_input
+  - column_count_input
+  - ingested_at
+
+acceptance:
+  fail_pipeline_when_required_file_missing: true
+  fail_pipeline_when_checksum_missing: true
+  fail_pipeline_when_run_id_missing: true

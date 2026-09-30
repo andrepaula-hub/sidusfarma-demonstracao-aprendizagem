@@ -1,0 +1,12 @@
+sindusfarma_raw:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('DBT_HOST', 'postgres') }}"
+      port: 5432
+      user: "{{ env_var('DBT_USER', 'warehouse') }}"
+      password: "{{ env_var('DBT_PASSWORD', 'warehouse') }}"
+      dbname: "{{ env_var('DBT_DBNAME', 'warehouse') }}"
+      schema: trusted_dw
+      threads: 4

@@ -1,0 +1,19 @@
+version: 2
+
+sources:
+  - name: raw_staging
+    description: "Registros imutáveis extraídos do MinIO. Cada linha carrega arquivo, checksum, horário e run_id de origem."
+    schema: raw_staging
+    tables:
+      - name: clientes_raw
+        description: "Landing de clientes.csv, delimitado por ponto e vírgula e codificado em UTF-8 BOM."
+      - name: empresas_raw
+        description: "Landing de empresas.csv."
+      - name: pesquisas_raw
+        description: "Landing de pesquisas.csv."
+      - name: questoes_raw
+        description: "Landing de questoes.csv."
+      - name: respondentes_raw
+        description: "Landing de respondentes.csv."
+      - name: respostas_raw
+        description: "Landing de respostas.csv."

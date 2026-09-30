@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kpis-summary-v2.schema.json",
+  "title": "Indicadores e estatística descritiva do Artefato 3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract_schema",
+    "generated_at",
+    "source_fingerprint_sha256",
+    "source_manifest",
+    "kpis",
+    "granularity_analysis",
+    "descriptive_statistics"
+  ],
+  "properties": {
+    "schema_version": {"const": "2.0"},
+    "contract_schema": {"const": "schemas/kpis-summary-v2.schema.json"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "source_fingerprint_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "source_manifest": {"type": "object"},
+    "kpis": {"type": "array", "minItems": 6},
+    "granularity_analysis": {"type": "array", "minItems": 2},
+    "descriptive_statistics": {"type": "object"}
+  }
+}

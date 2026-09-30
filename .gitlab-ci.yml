@@ -1,0 +1,72 @@
+image: python:3.12.10-slim-bookworm
+
+stages:
+  - validate
+  - package
+  - deploy
+
+variables:
+  WRANGLER_VERSION: "4.123.0"
+
+validate-unit-contracts:
+  stage: validate
+  before_script:
+    - python -m pip install --disable-pip-version-check -r requirements-test.txt
+  script:
+    - python -m pytest -m "not integration" --cov=scripts --cov-report=term-missing --cov-fail-under=85
+
+validate-docs:
+  stage: validate
+  before_script:
+    - python -m pip install --disable-pip-version-check -r requirements-docs.txt
+  script:
+    - python -m mkdocs build --strict
+
+validate-partner-snapshot:
+  stage: validate
+  before_script:
+    - python -m pip install --disable-pip-version-check -r requirements-test.txt
+  script:
+    - python -m pytest -m integration
+  rules:
+    - if: '$PARTNER_DATA_DIR'
+
+package-private-site:
+  stage: package
+  before_script:
+    - python -m pip install --disable-pip-version-check -r requirements-docs.txt
+  script:
+    - python -m scripts.publication.prepare_private_site
+    - python -m mkdocs build --strict --config-file mkdocs.private.yml --site-dir public
+    - python -m scripts.publication.privacy_gate --site-dir public
+  artifacts:
+    paths:
+      - public/
+    expire_in: 1 day
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+
+deploy-private-cloudflare-pages:
+  stage: deploy
+  image: node:22-bookworm-slim
+  needs:
+    - job: package-private-site
+      artifacts: true
+  before_script:
+    - test -n "${CLOUDFLARE_ACCOUNT_ID:-}"
+    - test -n "${CLOUDFLARE_API_TOKEN:-}"
+    - test -n "${CLOUDFLARE_PAGES_PROJECT:-}"
+    - test "${CLOUDFLARE_ACCESS_CONFIRMED:-}" = "true"
+  script:
+    - test -s public/index.html
+    - npx --yes "wrangler@${WRANGLER_VERSION}" pages deploy public --project-name="${CLOUDFLARE_PAGES_PROJECT}" --branch="${CI_COMMIT_BRANCH}" --commit-hash="${CI_COMMIT_SHA}" --commit-message="${CI_COMMIT_TITLE}"
+  environment:
+    name: private-cloudflare-pages
+    deployment_tier: production
+  resource_group: private-cloudflare-pages
+  when: manual
+  manual_confirmation: "Publicar o pacote revisado no Cloudflare Pages protegido pelo Access?"
+  allow_failure: false
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop" && $CLOUDFLARE_ACCESS_CONFIRMED == "true" && $CLOUDFLARE_PAGES_PROJECT'

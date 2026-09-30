@@ -1,0 +1,22 @@
+name: sindusfarma_raw
+version: "1.0.0"
+config-version: 2
+profile: sindusfarma_raw
+
+model-paths: ["models"]
+test-paths: ["tests"]
+target-path: target
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  sindusfarma_raw:
+    staging:
+      +materialized: view
+      +schema: raw_staging
+    quarantine:
+      +materialized: table
+      +schema: quarantine
+    trusted:
+      +materialized: incremental
+      +schema: trusted_dw
+      +on_schema_change: append_new_columns
